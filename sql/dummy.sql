@@ -6,17 +6,18 @@ INSERT INTO `clinics` (`id`, `name`, `address`, `district`, `phone`, `open_hours
 (5, 'Fanling Clinic', '3/F, Fanling Health Centre\r\n2 Pik Fung Road, Fanling', 'Fanling', '26711046', 'Mon-Fri 9:00-18:00');
 
 
-INSERT INTO `dentists` (`id`, `first_name`, `last_name`, `gender`, `phone`, `email_address`) VALUES
-(1, 'William', 'Lam', 'M', '12345678', 'william.lam@clinic.com'),
-(2, 'Emily', 'Wong', 'F', '23456789', 'emily.wong@clinic.com'),
-(3, 'David', 'Cheung', 'M', '34567890', 'david.cheung@clinic.com'),
-(4, 'Sophie', 'Li', 'F', '45678901', 'sophie.li@clinic.com'),
-(5, 'Michael', 'Ng', 'M', '56789012', 'michael.ng@clinic.com'),
-(6, 'Grace', 'Chan', 'F', '67890123', 'grace.chan@clinic.com'),
-(7, 'Thomas', 'Ho', 'M', '78901234', 'thomas.ho@clinic.com'),
-(8, 'Rachel', 'Lau', 'F', '89012345', 'rachel.lau@clinic.com'),
-(9, 'James', 'Yip', 'M', '90123456', 'james.yip@clinic.com'),
-(10, 'Linda', 'Tsang', 'F', '91234567', 'linda.tsang@clinic.com');
+INSERT INTO dental.dentists (email_address,first_name,gender,last_name,phone,image_url) VALUES
+('william.lam@clinic.com','William','M','Lam','12345678','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/william.jpg'),
+('emily.wong@clinic.com','Emily','F','Wong','23456789','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/emily.jpg'),
+('david.cheung@clinic.com','David','M','Cheung','34567890','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/david.jpg'),
+('sophie.li@clinic.com','Sophie','F','Li','45678901','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/sophie.jpg'),
+('michael.ng@clinic.com','Michael','M','Ng','56789012','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/michael.jpg'),
+('grace.chan@clinic.com','Grace','F','Chan','67890123','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/grace.jpg'),
+('thomas.ho@clinic.com','Thomas','M','Ho','78901234','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/thomas.jpg'),
+('rachel.lau@clinic.com','Rachel','F','Lau','89012345','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/rachel.jpg'),
+('james.yip@clinic.com','James','M','Yip','90123456','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/james.jpg'),
+('linda.tsang@clinic.com','Linda','F','Tsang','91234567','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dentists/linda.jpg');
+
 
 
 INSERT INTO `timeslots` (`id`, `start_time`, `end_time`) VALUES
@@ -205,12 +206,13 @@ INSERT INTO `clinic_dentists` (`id`, `clinic_id`, `dentist_id`, `day_of_week`, `
 (160, 5, 10, 'Wed', 6),
 (161, 5, 10, 'Wed', 7);
 
-INSERT INTO `items` (`id`, `name`) VALUES
-(1, 'Teeth Cleaning'),
-(2, 'Tooth Filling'),
-(3, 'Tooth Extraction'),
-(4, 'Root Canal Treatment'),
-(5, 'Dental Checkup');
+INSERT INTO dental.items (name,image_url) VALUES
+('Teeth Cleaning','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/teeth_cleaning.jpg'),
+('Tooth Filling','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/tooth_filling.jpg'),
+('Tooth Extraction','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/tooth_extraction.jpg'),
+('Root Canal Treatment','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/root_canal_treatment.jpg'),
+('Dental Checkup','https://poly-sehs4701-groupproject-s3.s3.ap-east-1.amazonaws.com/dental_checkup.jpg');
+
 
 INSERT INTO `dentist_items` (`id`, `dentist_id`, `item_id`, `fee`) VALUES
 (1, 1, 1, '200.00'),

@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from "react";
-import styles from "./MapComponent.module.css";
+import React from 'react';
+import styles from './MapComponent.module.css';
 
-const MapComponent: React.FC = () => {
-  const [iframeLoaded, setIframeLoaded] = useState(false);
+interface MapComponentProps {
+  address: string;
+}
 
-  useEffect(() => {
-    setIframeLoaded(true);
-  }, []);
-
-  if (!iframeLoaded) {
-    return "There is an error occured while requesting the map.";
-  }
-
-  /* Variables for map configuration.*/
-  const latitude = 37.1645;
-  const longitude = 28.3737;
-  const zoomLevel = 18;
-  const mapLanguage = "tr";
+const MapComponent: React.FC<MapComponentProps> = ({ address }) => {
+  // Encode the address for the URL
+  const encodedAddress = encodeURIComponent(address);
+  
+  // Create the OpenStreetMap search URL
+  const mapUrl = `https://www.openstreetmap.org/search?query=${encodedAddress}`;
+  
+  // Create a static image URL from OpenStreetMap
+  const staticMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=113.8914,22.2783,114.2710,22.3493&layer=mapnik&marker=22.3138,114.0813`;
 
   return (
-    <div className={styles.main}>
+    <div className={styles.mapWrapper}>
       <iframe
-        title="cerkezimLocation"
-        className="mapiframe"
-        height="600"
-        src={`https://maps.google.com/maps?hl=${mapLanguage}&q=${latitude},${longitude}&t=&z=${zoomLevel}&ie=UTF8&iwloc=B&output=embed`}
-      ></iframe>
+        src={staticMapUrl}
+        className={styles.map}
+        title="Location map"
+        loading="lazy"
+      />
+      <a 
+        href={mapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.viewLarger}
+      >
+        View Larger Map
+      </a>
     </div>
   );
 };

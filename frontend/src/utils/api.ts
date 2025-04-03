@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { PatientRegisterRequest, PatientLoginRequest } from '@/types/api';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:6616';
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -23,6 +25,151 @@ export interface ApiResponse<T = any> {
   data?: T;
 }
 
+interface TreatmentResponse {
+  code: number;
+  message: string;
+  itemList: Array<{
+    id: number;
+    name: string;
+    image_url: string;
+  }>;
+}
+
+export interface PatientEditRequest {
+  id: number;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  gender: string;
+  dob: string;
+  phone: string;
+}
+
+interface DentistResponse {
+  code: number;
+  message: string;
+  dentistList: Array<{
+    id: number;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    emailAddress: string;
+    imageUrl: string;
+  }>;
+}
+
+interface DentistDetailResponse {
+  code: number;
+  message: string;
+  dentist: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    emailAddress: string;
+  };
+}
+
+interface DentistItem {
+  id: number;
+  dentistReferenceId: number;
+  dentist: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    emailAddress: string;
+  };
+  itemReferenceId: number;
+  item: {
+    id: number;
+    name: string;
+  };
+  fee: number;
+}
+
+interface DentistItemsResponse {
+  code: number;
+  message: string;
+  dentistItemList: DentistItem[];
+}
+
+interface ClinicDentist {
+  id: number;
+  clinicReferenceId: number;
+  clinic: {
+    id: number;
+    name: string;
+    address: string;
+    district: string;
+    phone: string;
+    openHours: string;
+  };
+  dentistReferenceId: number;
+  dayOfWeek: string;
+  timeslot: {
+    id: number;
+    startTime: string;
+    endTime: string;
+  };
+}
+
+interface ClinicDentistResponse {
+  code: number;
+  message: string;
+  clinicDentistList: Array<{
+    id: number;
+    clinicReferenceId: number;
+    clinic: {
+      id: number;
+      name: string;
+      address: string;
+      district: string;
+      phone: string;
+      openHours: string;
+    };
+    dentistReferenceId: number;
+    dentist: {
+      id: number;
+      firstName: string;
+      lastName: string;
+      gender: string;
+      emailAddress: string;
+      imageUrl: string;
+    };
+    dayOfWeek: string;
+    timeslotReferenceId: number;
+    timeslot: {
+      id: number;
+      startTime: string;
+      endTime: string;
+    };
+  }>;
+}
+
+export interface Clinic {
+  id: number;
+  name: string;
+  district: string;
+  address: string;
+  phone: string;
+  openHours: string;
+  imageUrl?: string;  // Optional property for clinic image
+}
+
+interface ClinicResponse {
+  code: number;
+  message: string;
+  clinicList: Array<{
+    id: number;
+    name: string;
+    address: string;
+    district: string;
+    phone: string;
+    openHours: string;
+  }>;
+}
+
 export const patientApi = {
   register: async (data: PatientRegisterRequest): Promise<ApiResponse> => {
     const response = await api.post<ApiResponse>('/patient/register', data);
@@ -34,8 +181,43 @@ export const patientApi = {
     return response.data;
   },
 
-  getTreatments: async (): Promise<ApiResponse> => {
-    const response = await api.get<ApiResponse>('/item/list');
+  getTreatments: async (): Promise<TreatmentResponse> => {
+    const response = await api.get<TreatmentResponse>('/item/list');
+    return response.data;
+  },
+
+  editProfile: async (data: PatientEditRequest): Promise<ApiResponse> => {
+    const response = await api.post<ApiResponse>('/patient/edit', data);
+    return response.data;
+  },
+
+  getDentists: async (): Promise<DentistResponse> => {
+    const response = await api.get<DentistResponse>('/dentist/list');
+    return response.data;
+  },
+
+  getDentistById: async (id: number): Promise<DentistDetailResponse> => {
+    const response = await api.get<DentistDetailResponse>(`/dentist/${id}`);
+    return response.data;
+  },
+
+  getDentistItems: async (dentistId: number): Promise<DentistItemsResponse> => {
+    const response = await api.get<DentistItemsResponse>(`/dentistItem/dentist/${dentistId}`);
+    return response.data;
+  },
+
+  getClinicDentists: async (clinicId: string): Promise<ClinicDentistResponse> => {
+    const response = await api.get<ClinicDentistResponse>(`/clinicDentist/clinic/${clinicId}`);
+    return response.data;
+  },
+
+  getClinics: async (): Promise<ClinicResponse> => {
+    const response = await api.get<ClinicResponse>('/clinic/list');
+    return response.data;
+  },
+
+  getClinicDentistsByDentist: async (dentistId: number): Promise<ClinicDentistResponse> => {
+    const response = await api.get<ClinicDentistResponse>(`/clinicDentist/dentist/${dentistId}`);
     return response.data;
   },
 }; 

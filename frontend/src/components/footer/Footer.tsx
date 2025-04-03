@@ -19,31 +19,19 @@ const Footer = () => {
           <h2>Our Treatments</h2>
           <ul>
             <li>
+              <AiOutlineCheck className={styles.icon} /> Teeth Cleaning
+            </li>
+            <li>
+              <AiOutlineCheck className={styles.icon} /> Tooth Filling
+            </li>
+            <li>
+              <AiOutlineCheck className={styles.icon} /> Tooth Extraction
+            </li>
+            <li>
               <AiOutlineCheck className={styles.icon} /> Root Canal Treatment
             </li>
             <li>
-              <AiOutlineCheck className={styles.icon} /> Orthodontics Treatment
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Maxillofacial Surgery
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Dental Implants
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Aesthetic Dentistry
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Dental Restoration
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Teeth Whitening
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Wisdom Tooth Extraction
-            </li>
-            <li>
-              <AiOutlineCheck className={styles.icon} /> Pediatric Dentistry
+              <AiOutlineCheck className={styles.icon} /> Dental Checkup
             </li>
           </ul>
         </div>

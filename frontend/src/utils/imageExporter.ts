@@ -16,7 +16,7 @@ const aestheticDentistryImg = "/images/aestheticDentistry.jpg";
 const DentistAvatar = "/images/dentist2.png";
 
 /* --- Clinic Photos --- */
-const ClinicPhotoOne = "/images/dentalClinic-1.jpg";
+const ClinicPhotoOne = "/images/dentalClinic-7.jpg";
 const ClinicPhotoTwo = "/images/dentalClinic-2.jpg";
 const ClinicPhotoThree = "/images/dentalClinic-3.jpg";
 const ClinicPhotoFour = "/images/dentalClinic-4.jpg";

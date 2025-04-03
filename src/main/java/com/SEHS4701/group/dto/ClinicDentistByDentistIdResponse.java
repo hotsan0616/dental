@@ -47,6 +47,7 @@ public class ClinicDentistByDentistIdResponse extends BaseResponse {
             private String lastName;
             private String gender;
             private String emailAddress;
+            private String imageUrl;
         }
 
         @Getter

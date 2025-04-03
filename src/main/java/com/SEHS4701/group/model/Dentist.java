@@ -24,4 +24,5 @@ public class Dentist {
     private String gender;
     private String phone;
     private String emailAddress;
+    private String imageUrl;
 }

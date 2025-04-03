@@ -30,7 +30,7 @@ public class DentistItemByIdResponse extends BaseResponse {
             private String firstName;
             private String lastName;
             private String gender;
-            private String emailAddress;
+            private String emailAddress;    
         }
 
         @Getter

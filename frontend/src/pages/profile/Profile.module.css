@@ -6,8 +6,8 @@
 
 .profileContainer {
   max-width: 1200px;
-  margin: 48px auto;
-  padding: 48px 24px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .profileTitle {
@@ -61,13 +61,22 @@
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .sectionIcon {
-  font-size: 24px;
-  color: #333;
+  font-size: 1.5rem;
+  color: #2196F3;
 }
 
 .sectionHeader h2 {
@@ -188,6 +197,96 @@
 
 .logoutIcon {
   font-size: 18px;
+}
+
+.editButton,
+.saveButton,
+.cancelButton {
+  padding: 8px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.editButton {
+  background-color: #2196F3;
+  border: none;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #1976D2;
+}
+
+.editActions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.saveButton {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: #45a049;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  border: none;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #da190b;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.inputError {
+  border-color: #f44336;
+}
+
+.inputError:focus {
+  border-color: #f44336;
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.1);
+}
+
+.fieldError {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 4px;
+  padding-left: 8px;
+}
+
+.error {
+  color: #f44336;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #ffebee;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ffcdd2;
 }
 
 @media (max-width: 768px) {

@@ -1,51 +1,246 @@
 /* Denist.module.css */
 
-.dentistContainer {
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.profile {
   display: flex;
-  gap: 32px;
+  gap: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
-.dentistContainer article {
-  flex-basis: 50%;
-  order: 1;
+.imageContainer {
+  flex-shrink: 0;
 }
 
-.dentistContainer article h3,
-.dentistContainer article h4 {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: var(--font-size-md);
-  margin: 16px 0;
-}
-
-.dentistContainer article p {
-  line-height: 1.75;
-}
-
-.dentistContainer figure {
-  position: relative;
-  flex-basis: 50%;
-  height: 500px;
-  border-radius: 8x;
-  order: 2;
-}
-
-.dentistContainer figure img {
+.avatar {
+  border-radius: 15px;
   object-fit: cover;
-  object-position: center;
-  border-radius: 8px;
 }
 
-/* Media Queries */
+.info {
+  flex-grow: 1;
+}
+
+.info h1 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.detail label {
+  font-weight: 600;
+  color: #666;
+  min-width: 80px;
+}
+
+.detail p {
+  color: #333;
+  font-size: 1rem;
+}
+
+.treatments {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.treatments h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.treatmentList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.treatmentCard {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.treatmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.treatmentInfo h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.fee {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #f44336;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.clinics {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.clinics h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.clinicList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.clinicCard {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clinicCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clinicInfo h3 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.clinicInfo p {
+  margin-bottom: 0.5rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.address {
+  white-space: pre-line;
+  margin-bottom: 1rem !important;
+}
+
+.district {
+  font-weight: 500;
+}
+
+.scheduleInfo {
+  margin-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1rem;
+}
+
+.scheduleInfo h4 {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.schedules {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.schedule {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 6px;
+}
+
+.day {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.time {
+  color: #666;
+}
+
 @media (max-width: 768px) {
-  .dentistContainer {
+  .profile {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  .dentistContainer article {
-    order: 2;
+
+  .details {
+    align-items: center;
   }
-  .dentistContainer figure {
-    order: 1;
-    flex-basis: auto;
+
+  .detail {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .detail label {
+    min-width: auto;
+  }
+
+  .treatmentList {
+    grid-template-columns: 1fr;
+  }
+
+  .clinicList {
+    grid-template-columns: 1fr;
+  }
+
+  .clinicCard {
+    padding: 1rem;
   }
 }

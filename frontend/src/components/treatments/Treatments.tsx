@@ -6,10 +6,7 @@ import { patientApi } from '@/utils/api';
 interface Treatment {
   id: number;
   name: string;
-}
-
-interface TreatmentsResponse {
-  itemList: Treatment[];
+  image_url: string;
 }
 
 const Treatments: React.FC = () => {
@@ -21,9 +18,8 @@ const Treatments: React.FC = () => {
     const fetchTreatments = async () => {
       try {
         const response = await patientApi.getTreatments();
-        if (response.code === 0 && response.data) {
-          const treatmentsData = response.data as TreatmentsResponse;
-          setTreatments(treatmentsData.itemList || []);
+        if (response.code === 0) {
+          setTreatments(response.itemList);
         } else {
           setError(response.message || 'Failed to fetch treatments');
         }
@@ -93,7 +89,7 @@ const Treatments: React.FC = () => {
             <article key={treatment.id}>
               <figure className={styles.imageWrapper}>
                 <Image
-                  src="/images/treatments/placeholder.jpg"
+                  src={treatment.image_url}
                   alt={`${treatment.name} Image`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

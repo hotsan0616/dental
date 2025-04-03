@@ -1,50 +1,67 @@
 version: '3.8'
 
 services:
- spring-boot-app:
-   container_name: spring-boot-app
-   build:
-     context: .
-     dockerfile: Dockerfile
-   ports:
-     - "6616:6616"
-   environment:
-     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/dental?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-     - SPRING_DATASOURCE_USERNAME=root
-     - SPRING_DATASOURCE_PASSWORD=123456
-     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-     - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
-     - SPRING_DATASOURCE_HIKARI_CONNECTION-TIMEOUT=20000  # 20 seconds timeout
-     - SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE=5
-     - SPRING_DATASOURCE_HIKARI_INITIALIZATION-FAIL-TIMEOUT=0  # Retry indefinitely
-   depends_on:
-     mysql-db:
-       condition: service_healthy
-   networks:
-     - app-network
+  frontend:
+    container_name: dental-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://spring-boot-app:6616
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - spring-boot-app
+    networks:
+      - app-network
 
- mysql-db:
-   container_name: mysql-db
-   image: mysql:8.0
-   command: --default-authentication-plugin=mysql_native_password
-   environment:
-     - MYSQL_ROOT_PASSWORD=123456
-     - MYSQL_DATABASE=dental
-   ports:
-     - "3306:3306"
-   volumes:
-     - mysql-data:/var/lib/mysql
-   healthcheck:
-     test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]
-     interval: 5s
-     timeout: 5s
-     retries: 10
-   networks:
-     - app-network
+  spring-boot-app:
+    container_name: spring-boot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "6616:6616"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/dental?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_HIKARI_CONNECTION-TIMEOUT=20000  # 20 seconds timeout
+      - SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE=5
+      - SPRING_DATASOURCE_HIKARI_INITIALIZATION-FAIL-TIMEOUT=0  # Retry indefinitely
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  mysql-db:
+    container_name: mysql-db
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=dental
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app-network
 
 networks:
- app-network:
-   driver: bridge
+  app-network:
+    driver: bridge
 
 volumes:
- mysql-data:
+  mysql-data:

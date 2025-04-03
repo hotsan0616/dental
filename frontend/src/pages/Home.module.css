@@ -125,100 +125,112 @@
 }
 
 /* Start of  Team Section */
-.team h1 {
-  font-size: var(--font-size-xl);
-  margin-bottom: 1rem;
-  color: var(--primary-color);
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
+.team {
+  padding: 4rem 0;
+  background: #f8f9fa;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.team article {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
 }
+
+.sectionTitle h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.sectionTitle p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.teamCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 360px;
+  margin: 0 0.5rem;
+}
+
+.teamCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.teamImage {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.teamCard:hover .avatar {
+  transform: scale(1.05);
+}
+
+.teamInfo {
+  padding: 1rem;
+  text-align: center;
+}
+
+.teamInfo h3 {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.teamInfo p {
+  color: #666;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.resumeLink {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.resumeLink:hover {
+  background: var(--secondary-color);
+}
+
+/* Update Swiper styles */
+.team :global(.swiper) {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team :global(.swiper-slide) {
+  height: auto;
+  padding: 0.5rem;
+}
+
 /* End Of Team Section */
 
-/* Start Of Workhours Section */
-.workhourShowcase {
-  background-color: var(--primary-color);
-  margin: 144px 0 144px 0;
-  position: relative;
-}
-
-.workhours {
-  display: flex;
-  align-items: center;
-  color: var(--white);
-  justify-content: space-between;
-}
-
-.workhours article h1 {
-  font-size: var(--font-size-lg);
-  margin-bottom: 1rem;
-  color: var(--white);
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-}
-
-.workhours svg {
-  margin-left: auto;
-  width: 256px;
-  height: 256px;
-}
-
-.workhours .workhourTable {
-  font-family: "Manrope", sans-serif;
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 16px 0;
-}
-
-.workhourTable th,
-.workhourTable td {
-  border: none;
-  padding: 4px;
-  text-align: left;
-}
-
-.workhourShowcase .shapeTop {
-  position: absolute;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 90px;
-  position: absolute;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(360deg);
-  top: -82px;
-  background-color: var(--background-color);
-  fill: var(--primary-color);
-  border-bottom: px solid var(--background-color);
-}
-
-.workhourShowcase .shapeBottom {
-  position: absolute;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 90px;
-  position: absolute;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(360deg);
-  bottom: -88px;
-  background-color: var(--background-color);
-  fill: var(--primary-color);
-}
-
-/* End Of Workhours Section */
-
 /* Media Queries */
-
 @media (max-width: 1024px) {
   .heroContainer {
     height: auto;
@@ -228,14 +240,6 @@
 
   .services .serviceShowcase {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-
-  .workhourShowcase .shapeTop {
-    top: -83px;
-  }
-
-  .workhourShowcase .shapeBottom {
-    bottom: -84px;
   }
 
   .team {
@@ -252,20 +256,6 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
-  .workhours {
-    align-items: flex-start;
-  }
-
-  .workhours svg {
-    width: 200px;
-    height: 200px;
-  }
-
-  .workhours svg {
-    display: block !;
-    margin-top: 32px;
-  }
-
   .treatmentsContainer {
     grid-template-columns: 1fr;
   }
@@ -278,15 +268,6 @@
 
   .services .serviceShowcase {
     grid-template-columns: repeat(1, 1fr);
-  }
-
-  .workhours svg {
-    display: none;
-    margin-top: 32px;
-  }
-
-  .workhourShowcase .shapeTop {
-    top: -82px;
   }
 
   .treatmentsContainer {
@@ -326,17 +307,169 @@
   .services .serviceShowcase {
     gap: 16px;
   }
+}
 
-  .workhours {
-    flex-direction: column;
-    align-items: center;
+/* Loading and Error States */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #f44336;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* Clinic Section */
+.clinicLocations {
+  padding: 4rem 0;
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+}
+
+.clinicLocationsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.clinicLocationsHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.clinicLocationsHeader h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.clinicLocationsHeader p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.clinicLocationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.clinicCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.clinicCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.clinicImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.clinicInfo {
+  padding: 1.5rem;
+}
+
+.clinicInfo h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.clinicDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.clinicDetail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.clinicDetail svg {
+  color: #3498db;
+  font-size: 1.2rem;
+}
+
+.clinicSchedule {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.clinicSchedule h4 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.scheduleItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.scheduleItem .day {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.scheduleItem .time {
+  color: #3498db;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .clinicLocations {
+    padding: 3rem 0;
   }
 
-  .workhours svg {
-    display: none;
+  .clinicLocationsHeader h2 {
+    font-size: 2rem;
   }
 
-  .workhourShowcase .shapeTop {
-    top: -84px;
+  .clinicLocationsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .clinicCard {
+    max-width: 500px;
+    margin: 0 auto;
   }
 }
