@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/dentistItem")
 public class DentistItemController {
-	
 	private final DentistItemService dentistItemService;
 
     public DentistItemController(DentistItemService dentistItemService) {
@@ -48,12 +47,7 @@ public class DentistItemController {
 		}
 	}
 
-	@GetMapping("/item/{itemId}")
-	public ResponseEntity<?> getByItemId(@PathVariable Integer itemId) {
-		try {
-			return new ResponseEntity<>(dentistItemService.getByItemId(itemId), HttpStatus.OK);
-		} catch (RuntimeException e) {
-			return new ResponseEntity<>(new BaseResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-	}
+
+
+
 }

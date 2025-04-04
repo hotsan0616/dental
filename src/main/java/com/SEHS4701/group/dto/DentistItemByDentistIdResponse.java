@@ -9,38 +9,16 @@ import java.util.List;
 @Getter
 @Setter
 public class DentistItemByDentistIdResponse extends BaseResponse {
-    private List<DentistItem> dentistItemList;
+    private List<DentistItem> dentistItem;
 
-    public DentistItemByDentistIdResponse(List<DentistItem> dentistItemList) {
-        this.dentistItemList = dentistItemList;
+    public DentistItemByDentistIdResponse(List<DentistItem> dentistItem) {
+        this.dentistItem = dentistItem;
     }
 
     @Getter
     @Setter
     public static class DentistItem {
         private int id;
-        private Integer dentistReferenceId;
-        private Dentist dentist;
-        private Integer itemReferenceId;
-        private Item item;
-        private Float fee;
-
-        @Getter
-        @Setter
-        public static class Dentist {
-            private Integer id;
-            private String firstName;
-            private String lastName;
-            private String gender;
-            private String emailAddress;
-            private String imageUrl;
-        }
-
-        @Getter
-        @Setter
-        public static class Item {
-            private Integer id;
-            private String name;
-        }
+        private String name;
     }
 }

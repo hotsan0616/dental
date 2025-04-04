@@ -44,7 +44,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
         <p className={styles.cardSnippet}>{snippet}</p>
         <p className={styles.cardFooter}>
           <Link href={`/blogs/${slug}`} onClick={handleClick}>
-            Read More
+            Devamını Oku
             <IoIosArrowRoundForward />
           </Link>
           <span>{date}</span>

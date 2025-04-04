@@ -27,7 +27,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
         onChange={onChange}
         required={required}
         pattern="^(5[0-9]{9})$"
-        title="Example: 535 XXX XX XX"
+        title="Örn: 535 XXX XX XX"
       />
       <label htmlFor={id}>{placeholder}</label>
     </div>

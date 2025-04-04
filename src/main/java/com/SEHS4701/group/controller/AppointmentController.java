@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/appointment")
 public class AppointmentController {
-	
 	private final AppointmentService appointmentService;
 
     public AppointmentController(AppointmentService appointmentService) {
@@ -46,4 +45,6 @@ public class AppointmentController {
 			return new ResponseEntity<>(new BaseResponse(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
+
+
 }

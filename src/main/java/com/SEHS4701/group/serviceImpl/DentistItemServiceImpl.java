@@ -1,7 +1,6 @@
 package com.SEHS4701.group.serviceImpl;
 
 import com.SEHS4701.group.dto.DentistItemByDentistIdResponse;
-import com.SEHS4701.group.dto.DentistItemByItemIdResponse;
 import com.SEHS4701.group.dto.DentistItemByIdResponse;
 import com.SEHS4701.group.dto.DentistItemListResponse;
 import com.SEHS4701.group.model.DentistItem;
@@ -49,17 +48,6 @@ public class DentistItemServiceImpl implements DentistItemService {
         }
         return new DentistItemByDentistIdResponse(dentistItems.stream()
                 .map(dentistItem -> modelMapper.map(dentistItem, DentistItemByDentistIdResponse.DentistItem.class))
-                .collect(Collectors.toList()));
-    }
-
-    @Override
-    public DentistItemByItemIdResponse getByItemId(Integer itemId) {
-        List<DentistItem> dentistItems = dentistRepository.findDentistItemByItemId(itemId);
-        if(dentistItems.isEmpty()) {
-            throw new RuntimeException("No dentist item found");
-        }
-        return new DentistItemByItemIdResponse(dentistItems.stream()
-                .map(dentistItem -> modelMapper.map(dentistItem, DentistItemByItemIdResponse.DentistItem.class))
                 .collect(Collectors.toList()));
     }
 }

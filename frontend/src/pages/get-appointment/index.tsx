@@ -10,7 +10,7 @@ const GetAppointment: React.FC = () => {
       <section>
         <div className={`${styles.appointmentContainer} container`}>
           <AiOutlineSchedule />
-          <h2>Online Appointment</h2>
+          <h2>Online Randevu</h2>
           <MultistepForm />
         </div>
       </section>

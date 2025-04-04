@@ -14,23 +14,13 @@ public class ClinicDentist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "clinic_id", insertable = false, updatable = false)
-    private int clinicReferenceId;
-
     @ManyToOne
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;
 
-    @Column(name = "dentist_id", insertable = false, updatable = false)
-    private int dentistReferenceId;
-
     @ManyToOne
     @JoinColumn(name = "dentist_id")
     private Dentist dentist;
-
-    @Column(name = "timeslot_id", insertable = false, updatable = false)
-    private int timeslotReferenceId;
 
     @ManyToOne
     @JoinColumn(name = "timeslot_id")
@@ -38,4 +28,10 @@ public class ClinicDentist {
 
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
+
+    @OneToMany(mappedBy = "clinicDentist")
+    private List<Appointment> appointment;
+
+
+
 }

@@ -25,7 +25,7 @@ public class ClinicDentistServiceImpl implements ClinicDentistService {
     public ClinicDentistListResponse getList() {
             List<ClinicDentist> clinicDentists = clinicdentistRepository.findAll();
         if (clinicDentists.isEmpty()) {
-            throw new RuntimeException("clinic dentists not found!");
+            throw new RuntimeException("clinic not found!");
         }
         return new ClinicDentistListResponse(clinicDentists.stream()
                 .map(clinicDentist -> modelMapper.map(clinicDentist, ClinicDentistListResponse.ClinicDentist.class))
@@ -34,7 +34,7 @@ public class ClinicDentistServiceImpl implements ClinicDentistService {
 
     @Override
     public ClinicDentistByIdResponse getById(Integer id) {
-        ClinicDentist clinicDentist = clinicdentistRepository.findById(id).orElseThrow(() -> new RuntimeException("clinic dentists not found!"));
+        ClinicDentist clinicDentist = clinicdentistRepository.findById(id).orElseThrow(() -> new RuntimeException("clinic not found!"));
 
         return new ClinicDentistByIdResponse(modelMapper.map(clinicDentist, ClinicDentistByIdResponse.ClinicDentist.class));
     }
@@ -43,7 +43,7 @@ public class ClinicDentistServiceImpl implements ClinicDentistService {
     public ClinicDentistByClinicIdResponse getByClinicId(Integer clinicId) {
         List<ClinicDentist> clinicDentists = clinicdentistRepository.findByClinicId(clinicId);
         if (clinicDentists.isEmpty()) {
-            throw new RuntimeException("clinic dentists not found!");
+            throw new RuntimeException("clinic not found!");
         }
         return new ClinicDentistByClinicIdResponse(clinicDentists.stream()
                 .map(clinicDentist -> modelMapper.map(clinicDentist, ClinicDentistByClinicIdResponse.ClinicDentist.class))
@@ -54,7 +54,7 @@ public class ClinicDentistServiceImpl implements ClinicDentistService {
     public ClinicDentistByDentistIdResponse getByDentistId(Integer dentistId) {
         List<ClinicDentist> clinicDentists = clinicdentistRepository.findByDentistId(dentistId);
         if (clinicDentists.isEmpty()) {
-            throw new RuntimeException("clinic dentists not found!");
+            throw new RuntimeException("clinic not found!");
         }
         return new ClinicDentistByDentistIdResponse(clinicDentists.stream()
                 .map(clinicDentist -> modelMapper.map(clinicDentist, ClinicDentistByDentistIdResponse.ClinicDentist.class))

@@ -14,19 +14,16 @@ public class DentistItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Float fee;
-
-    @Column(name = "dentist_id", insertable = false, updatable = false)
-    private int dentistReferenceId;
+    private int fee;
 
     @ManyToOne
     @JoinColumn(name = "dentist_id")
     private Dentist dentist;
 
-    @Column(name = "item_id", insertable = false, updatable = false)
-    private int itemReferenceId;
-
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
+
+    @OneToMany(mappedBy = "dentistItem")
+    private List<AppointmentItem> appointmentItem;
 }

@@ -1,39 +1,41 @@
 /* TextInput.module.css */
-.inputWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.label {
-  font-size: 0.9rem;
-  color: var(--text-color);
-  font-weight: 500;
-}
-
-.input {
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 1rem;
-  width: 100%;
-  background-color: white;
-  font-family: inherit;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-.input.error {
-  border-color: var(--error-color);
-}
-
-.errorMessage {
-  color: var(--error-color);
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-}
+.main {
+    position: relative;
+    width: 100%;
+  }
+  
+  .main input {
+    font-family: "Manrope",sans-serif;
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: var(--font-size-base);
+    color: var(--paragraph-font-color);
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--gray-color);
+    appearance: none;
+    outline: none;
+    transition: border-color 300ms;
+  }
+  
+  .main input:focus {
+    border-color: var(--primary-color);
+  }
+  
+  .main label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0;
+    font-size: var(--font-size-base);
+    color: var(--gray-color);
+    transition: transform 300ms, color 300ms, font-size 300ms;
+    transform-origin: 0 0;
+  }
+  
+  .main input:focus + label,
+  .main input:not(:placeholder-shown) + label {
+    transform: translateY(-1.5rem) scale(0.75);
+    color: var(--primary-color);
+  }
   

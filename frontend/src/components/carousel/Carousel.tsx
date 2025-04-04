@@ -85,7 +85,7 @@ const Carousel: React.FC = () => {
           </div>
         ))}
         {/* --- display:none --- */}
-        <h2 className={styles.carouselTitle}>Professional Dental Care for Your Family's Health</h2>
+        <h2 className={styles.carouselTitle}>Lorem ipsum dolor sit amet.</h2>
       </div>
     </div>
   );

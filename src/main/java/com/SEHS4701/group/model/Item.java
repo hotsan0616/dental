@@ -15,7 +15,6 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String image_url;
 
     @OneToMany(mappedBy = "item")
     private List<DentistItem> dentistItems;

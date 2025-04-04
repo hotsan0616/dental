@@ -1,15 +1,11 @@
 package com.SEHS4701.group.model;
 
-import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "dentists")
@@ -24,5 +20,10 @@ public class Dentist {
     private String gender;
     private String phone;
     private String emailAddress;
-    private String imageUrl;
+
+    @OneToMany(mappedBy = "dentist")
+    private List<ClinicDentist> clinicDentist;
+    @OneToMany(mappedBy = "dentist")
+    private List<DentistItem> dentistItems;
+
 }

@@ -20,6 +20,5 @@ public class ItemListResponse extends BaseResponse {
     public static class Item{
         private Integer id;
         private String name;
-        private String image_url;
     }
 }

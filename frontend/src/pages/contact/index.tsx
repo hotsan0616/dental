@@ -11,23 +11,20 @@ import MapComponent from "@/components/map/MapComponent";
 import Divider from "@/components/divider/Divider";
 import { useRouter } from "next/router";
 import styles from "./Contact.module.css";
-import { submitContactForm } from '../../utils/api';
 
 const Contact: React.FC = () => {
   const [formState, setFormState] = useState({
     firstName: "",
     lastName: "",
     phone: "",
-    emailAddress: "",
+    email: "",
     topic: "",
-    message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
     setFormState({
@@ -38,164 +35,131 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    await Swal.fire({
+      title: "Başarılı!",
+      html: '<p class="custom-swal-text">Talebiniz başarıyla iletildi.</p>',
+      icon: "success",
+      confirmButtonText: "Onayla",
+      customClass: {
+        title: "custom-swal-title",
+        confirmButton: "custom-swal-confirm-button",
+      },
+    });
 
-    try {
-      await submitContactForm(formState);
-      await Swal.fire({
-        title: "Success!",
-        html: '<p class="custom-swal-text">Your request has been successfully submitted.</p>',
-        icon: "success",
-        confirmButtonText: "OK",
-        customClass: {
-          title: "custom-swal-title",
-          confirmButton: "custom-swal-confirm-button",
-        },
-      });
+    setFormState({
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      topic: "",
+    });
 
-      setFormState({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        emailAddress: "",
-        topic: "",
-        message: "",
-      });
-
-      router.push("/");
-    } catch (error) {
-      await Swal.fire({
-        title: "Error!",
-        html: '<p class="custom-swal-text">Failed to submit your request. Please try again later.</p>',
-        icon: "error",
-        confirmButtonText: "OK",
-        customClass: {
-          title: "custom-swal-title",
-          confirmButton: "custom-swal-confirm-button",
-        },
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    router.push("/");
   };
 
   return (
     <RootLayout>
       <section className={`${styles.contactHero} container-fluid`}>
-        <h2 className={styles.contactHeroTextHeader}>Contact Us</h2>
+        <h2 className={styles.contactHeroTextHeader}>İletişim</h2>
         <p className={styles.contactHeroSubTextHeader}>
-          We're here to provide you with the best service. Don't hesitate to contact us
-          for appointments or any questions you may have.
+          Sizlere en iyi hizmeti sunmak için buradayız. Randevu almak veya
+          sorularınız için bizimle iletişime geçmekten çekinmeyin
         </p>
       </section>
       <section className={styles.section}>
         <div className={`${styles.main} container`}>
-          <h4 className="textHeader">Contact Form</h4>
+          <h4 className="textHeader">İletişim Formu</h4>
           <div className={styles.wrapper}>
             <form onSubmit={handleSubmit}>
               <TextInput
                 type="text"
-                name="firstName"
-                id="firstName"
-                placeholder="First Name"
+                placeholder="Adınız"
                 value={formState.firstName}
                 onChange={handleInputChange}
+                id="firstName"
               />
               <TextInput
                 type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Last Name"
+                placeholder="Soyadınız"
                 value={formState.lastName}
                 onChange={handleInputChange}
+                id="lastName"
               />
               <TextInput
                 type="tel"
-                name="phone"
-                id="phone"
-                placeholder="Phone Number"
+                placeholder="Telefon Numaranız"
                 value={formState.phone}
                 onChange={handleInputChange}
+                id="phone"
               />
               <TextInput
                 type="email"
-                name="emailAddress"
-                id="emailAddress"
-                placeholder="Email Address"
-                value={formState.emailAddress}
+                placeholder="E-posta adresiniz"
+                value={formState.email}
                 onChange={handleInputChange}
+                id="email"
               />
-              <div className={styles.selectContainer}>
-                <span>Topic</span>
+              <label htmlFor="selectTopic" className={styles.selectContainer}>
+                <span>Konu</span>
                 <select
+                  name="topic"
                   id="topic"
                   value={formState.topic}
                   onChange={handleInputChange}
                 >
-                  <option value="">Select a topic</option>
-                  <option value="Appointment">Appointment</option>
-                  <option value="Price Inquiry">Price Inquiry</option>
-                  <option value="General Question">General Question</option>
-                  <option value="Feedback">Feedback</option>
+                  <option value="Fiyat">Fiyat Bilgisi Öğrenme</option>
+                  <option value="Tedavi">Tedavi Sonrası Danışma</option>
+                  <option value="Şikayet">Şikayet Talebi</option>
+                  <option value="KonuDışı">Konu Dışı</option>
                 </select>
-              </div>
-              <div className={styles.selectContainer}>
-                <span>Message</span>
-                <textarea
-                  id="message"
-                  value={formState.message}
-                  onChange={handleInputChange}
-                  placeholder="Your message"
-                  className={styles.textarea}
-                />
-              </div>
-              <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit"}
+              </label>
+              <button type="submit" onClick={handleSubmit}>
+                Gönder
               </button>
             </form>
             <div className={styles.mapWrapper}>
-              <MapComponent address="2/F, Yan Oi Polyclinic, 6 Tuen Lee Street, Tuen Mun" />
+              <MapComponent />
             </div>
           </div>
         </div>
       </section>
 
-      <Divider text="Contact Information" />
+      <Divider text="Lorem" />
 
       <section className={styles.section}>
         <div className={`${styles.clinicInfoContainer} container`}>
           <div className={styles.workhoursWrapper}>
             <article>
-              <h2 className={styles.contactInfoTextHeader}>Office Hours</h2>
+              <h2 className={styles.contactInfoTextHeader}>Ofis Saatleri</h2>
               <table className={styles.workhoursTable}>
                 <tbody>
                   <tr>
-                    <td>Monday</td>
+                    <td>Pazartesi</td>
                     <td>09:00 - 18:00</td>
                   </tr>
                   <tr>
-                    <td>Tuesday</td>
+                    <td>Salı</td>
                     <td>09:00 - 18:00</td>
                   </tr>
                   <tr>
-                    <td>Wednesday</td>
+                    <td>Çarşamba</td>
                     <td>09:00 - 18:00</td>
                   </tr>
                   <tr>
-                    <td>Thursday</td>
+                    <td>Perşembe</td>
                     <td>09:00 - 18:00</td>
                   </tr>
                   <tr>
-                    <td>Friday</td>
+                    <td>Cuma</td>
                     <td>09:00 - 18:00</td>
                   </tr>
                   <tr>
-                    <td>Saturday</td>
+                    <td>Cumartesi</td>
                     <td>10:00 - 16:00</td>
                   </tr>
                   <tr>
-                    <td>Sunday</td>
-                    <td>Closed</td>
+                    <td>Pazar</td>
+                    <td>Kapalı</td>
                   </tr>
                 </tbody>
               </table>
@@ -203,38 +167,38 @@ const Contact: React.FC = () => {
           </div>
           <div className={styles.contactInfoWrapper}>
             <div className={styles.addressWrapper}>
-              <h2 className={styles.contactInfoTextHeader}>Contact Details</h2>
+              <h2 className={styles.contactInfoTextHeader}>İrtibat</h2>
               <div>
                 <GoLocation />
-                Address: 2/F, Yan Oi Polyclinic, 6 Tuen Lee Street, Tuen Mun
+                Adres: Apt. 929 13356 Desmond Court, West Todd, AR 03263
               </div>
               <div>
-                <Link href="tel:+85224523261">
+                <Link href="tel:+15053742847">
                   <CiPhone />
-                  Phone: +852 2452 3261
+                  Telefon: +1 (505) 111-111
                 </Link>
               </div>
             </div>
 
             <div className={styles.socialWrapper}>
               <h2 className={styles.contactInfoTextHeader}>
-                Connect With Us
+                Sosyal Bağlantılar
               </h2>
-              <Link href="https://wa.me/85224523261">
+              <Link href="https://wa.me/15053742847">
                 <AiOutlineWhatsApp />
-                +852 2452 3261
+                +1 (505) 374-2847
               </Link>
-              <Link href="https://instagram.com/hkdentalcare">
+              <Link href="https://instagram.com/loremdentaclinic">
                 <FaInstagram />
-                @hkdentalcare
+                @loremdentaclinic
               </Link>
-              <Link href="https://youtube.com/hkdentalcare">
+              <Link href="https://youtube.com/loremdentaclinic">
                 <CiYoutube />
-                @hkdentalcare
+                @loremdentaclinic
               </Link>
-              <Link href="mailto:contact@hkdentalcare.com">
+              <Link href="mailto:contact@loremdentaclinic.com">
                 <CiMail />
-                contact@hkdentalcare.com
+                contact@loremdentaclinic.com
               </Link>
             </div>
           </div>

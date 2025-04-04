@@ -25,11 +25,11 @@ public class ClinicByIdResponse extends BaseResponse {
     @Getter
     @Setter
     public static class Clinic{
-        private int id;
-        private String name;
-        private String address;
-        private String district;
-        private String phone;
-        private String openHours;
+            private int id;
+            private String name;
+            private String address;
+            private String district;
+            private String phone;
+            private String openHours;
     }
 }

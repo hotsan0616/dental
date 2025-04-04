@@ -34,6 +34,7 @@ public class PatientByIdResponse extends BaseResponse {
         private String gender;
         private LocalDateTime dob;
         private String phone;
+        private String password;
         private LocalDateTime createdAt;
         private LocalDateTime lastLoginAt;
 

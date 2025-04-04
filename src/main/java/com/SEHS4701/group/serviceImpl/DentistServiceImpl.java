@@ -1,6 +1,5 @@
 package com.SEHS4701.group.serviceImpl;
 
-import com.SEHS4701.group.dto.DentistByIdResponse;
 import com.SEHS4701.group.dto.DentistListResponse;
 import com.SEHS4701.group.model.Dentist;
 import com.SEHS4701.group.repository.DentistRepository;
@@ -26,16 +25,23 @@ public class DentistServiceImpl implements DentistService {
     public DentistListResponse getList() {
             List<Dentist> dentists = dentistRepository.findAll();
         if (dentists.isEmpty()) {
-            throw new RuntimeException("dentist not found!");
+            throw new RuntimeException("clinic not found!");
         }
         return new DentistListResponse(dentists.stream()
                 .map(dentist -> modelMapper.map(dentist, DentistListResponse.Dentist.class))
                 .collect(Collectors.toList()));
     }
 
-    @Override
-    public DentistByIdResponse getById(Integer id) {
-        Dentist dentist = dentistRepository.findById(id).orElseThrow(() -> new RuntimeException("dentist not found!"));
-        return new DentistByIdResponse(modelMapper.map(dentist, DentistByIdResponse.Dentist.class));
-    }
+//    @Override
+//    public DentistDTO getById(Integer id) {
+//        Optional<Dentist> dentist = dentistRepository.findById(id);
+//        if (dentist.isEmpty()) {
+//            throw new RuntimeException("clinic not found!");
+//        }
+//        return dentist.get();
+//    }
+//
+//    private DentistDTO mapToDTO(Dentist dentist) {
+//        DentistDTO dto = new DentistDTO();
+//    }
 }

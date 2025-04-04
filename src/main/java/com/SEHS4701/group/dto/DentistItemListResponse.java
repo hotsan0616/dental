@@ -19,28 +19,6 @@ public class DentistItemListResponse extends BaseResponse {
     @Setter
     public static class DentistItem {
         private int id;
-        private Integer dentistReferenceId;
-        private Dentist dentist;
-        private Integer itemReferenceId;
-        private Item item;
-        private Float fee;
-
-        @Getter
-        @Setter
-        public static class Dentist {
-            private Integer id;
-            private String firstName;
-            private String lastName;
-            private String gender;
-            private String emailAddress;
-            private String imageUrl;
-        }
-
-        @Getter
-        @Setter
-        public static class Item {
-            private Integer id;
-            private String name;
-        }
+        private String name;
     }
 }

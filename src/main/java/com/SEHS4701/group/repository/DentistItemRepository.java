@@ -9,6 +9,4 @@ import java.util.List;
 @Repository
 public interface DentistItemRepository extends JpaRepository<DentistItem, Integer> {
     public List<DentistItem> findDentistItemByDentistId(Integer dentistId);
-
-    public List<DentistItem> findDentistItemByItemId(Integer itemId);
 }
