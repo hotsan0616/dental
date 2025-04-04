@@ -19,22 +19,14 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Base Response Interface
 export interface ApiResponse<T = any> {
   code: number;
   message: string;
   data?: T;
 }
 
-interface TreatmentResponse {
-  code: number;
-  message: string;
-  itemList: Array<{
-    id: number;
-    name: string;
-    image_url: string;
-  }>;
-}
-
+// Patient Related Interfaces
 export interface PatientEditRequest {
   id: number;
   firstName: string;
@@ -45,6 +37,18 @@ export interface PatientEditRequest {
   phone: string;
 }
 
+// Treatment Related Interfaces
+interface TreatmentResponse {
+  code: number;
+  message: string;
+  itemList: Array<{
+    id: number;
+    name: string;
+    image_url: string;
+  }>;
+}
+
+// Dentist Related Interfaces
 interface DentistResponse {
   code: number;
   message: string;
@@ -92,6 +96,30 @@ interface DentistItemsResponse {
   code: number;
   message: string;
   dentistItemList: DentistItem[];
+}
+
+// Clinic Related Interfaces
+export interface Clinic {
+  id: number;
+  name: string;
+  district: string;
+  address: string;
+  phone: string;
+  openHours: string;
+  imageUrl?: string;  // Optional property for clinic image
+}
+
+interface ClinicResponse {
+  code: number;
+  message: string;
+  clinicList: Array<{
+    id: number;
+    name: string;
+    address: string;
+    district: string;
+    phone: string;
+    openHours: string;
+  }>;
 }
 
 interface ClinicDentist {
@@ -147,29 +175,17 @@ interface ClinicDentistResponse {
   }>;
 }
 
-export interface Clinic {
-  id: number;
-  name: string;
-  district: string;
-  address: string;
+// Contact Form Interface
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
   phone: string;
-  openHours: string;
-  imageUrl?: string;  // Optional property for clinic image
-}
-
-interface ClinicResponse {
-  code: number;
+  topic: string;
   message: string;
-  clinicList: Array<{
-    id: number;
-    name: string;
-    address: string;
-    district: string;
-    phone: string;
-    openHours: string;
-  }>;
 }
 
+// API Functions
 export const patientApi = {
   register: async (data: PatientRegisterRequest): Promise<ApiResponse> => {
     const response = await api.post<ApiResponse>('/patient/register', data);
@@ -220,4 +236,9 @@ export const patientApi = {
     const response = await api.get<ClinicDentistResponse>(`/clinicDentist/dentist/${dentistId}`);
     return response.data;
   },
+};
+
+export const submitContactForm = async (formData: ContactFormData): Promise<ApiResponse> => {
+  const response = await api.post<ApiResponse>('/contact_us', formData);
+  return response.data;
 }; 

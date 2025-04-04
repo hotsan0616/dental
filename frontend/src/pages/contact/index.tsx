@@ -11,20 +11,23 @@ import MapComponent from "@/components/map/MapComponent";
 import Divider from "@/components/divider/Divider";
 import { useRouter } from "next/router";
 import styles from "./Contact.module.css";
+import { submitContactForm } from '../../utils/api';
 
 const Contact: React.FC = () => {
   const [formState, setFormState] = useState({
     firstName: "",
     lastName: "",
     phone: "",
-    email: "",
+    emailAddress: "",
     topic: "",
+    message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
     setFormState({
@@ -35,26 +38,45 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await Swal.fire({
-      title: "Success!",
-      html: '<p class="custom-swal-text">Your request has been successfully submitted.</p>',
-      icon: "success",
-      confirmButtonText: "OK",
-      customClass: {
-        title: "custom-swal-title",
-        confirmButton: "custom-swal-confirm-button",
-      },
-    });
+    setIsSubmitting(true);
 
-    setFormState({
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      topic: "",
-    });
+    try {
+      await submitContactForm(formState);
+      await Swal.fire({
+        title: "Success!",
+        html: '<p class="custom-swal-text">Your request has been successfully submitted.</p>',
+        icon: "success",
+        confirmButtonText: "OK",
+        customClass: {
+          title: "custom-swal-title",
+          confirmButton: "custom-swal-confirm-button",
+        },
+      });
 
-    router.push("/");
+      setFormState({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        emailAddress: "",
+        topic: "",
+        message: "",
+      });
+
+      router.push("/");
+    } catch (error) {
+      await Swal.fire({
+        title: "Error!",
+        html: '<p class="custom-swal-text">Failed to submit your request. Please try again later.</p>',
+        icon: "error",
+        confirmButtonText: "OK",
+        customClass: {
+          title: "custom-swal-title",
+          confirmButton: "custom-swal-confirm-button",
+        },
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -74,6 +96,7 @@ const Contact: React.FC = () => {
               <TextInput
                 type="text"
                 name="firstName"
+                id="firstName"
                 placeholder="First Name"
                 value={formState.firstName}
                 onChange={handleInputChange}
@@ -81,6 +104,7 @@ const Contact: React.FC = () => {
               <TextInput
                 type="text"
                 name="lastName"
+                id="lastName"
                 placeholder="Last Name"
                 value={formState.lastName}
                 onChange={handleInputChange}
@@ -88,33 +112,45 @@ const Contact: React.FC = () => {
               <TextInput
                 type="tel"
                 name="phone"
+                id="phone"
                 placeholder="Phone Number"
                 value={formState.phone}
                 onChange={handleInputChange}
               />
               <TextInput
                 type="email"
-                name="email"
+                name="emailAddress"
+                id="emailAddress"
                 placeholder="Email Address"
-                value={formState.email}
+                value={formState.emailAddress}
                 onChange={handleInputChange}
               />
-              <label htmlFor="topic" className={styles.selectContainer}>
+              <div className={styles.selectContainer}>
                 <span>Topic</span>
                 <select
-                  name="topic"
                   id="topic"
                   value={formState.topic}
                   onChange={handleInputChange}
                 >
-                  <option value="Price">Price Inquiry</option>
-                  <option value="Treatment">Post-Treatment Consultation</option>
-                  <option value="Complaint">File a Complaint</option>
-                  <option value="Other">Other</option>
+                  <option value="">Select a topic</option>
+                  <option value="Appointment">Appointment</option>
+                  <option value="Price Inquiry">Price Inquiry</option>
+                  <option value="General Question">General Question</option>
+                  <option value="Feedback">Feedback</option>
                 </select>
-              </label>
-              <button type="submit">
-                Submit
+              </div>
+              <div className={styles.selectContainer}>
+                <span>Message</span>
+                <textarea
+                  id="message"
+                  value={formState.message}
+                  onChange={handleInputChange}
+                  placeholder="Your message"
+                  className={styles.textarea}
+                />
+              </div>
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit"}
               </button>
             </form>
             <div className={styles.mapWrapper}>

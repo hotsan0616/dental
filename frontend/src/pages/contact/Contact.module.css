@@ -1,274 +1,157 @@
 /* Contact.module.css */
 
 .contactHero {
-  margin-top: 0px !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  background-image: url("/heroContact.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 500px;
-  overflow: hidden;
-}
-
-.contactHero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.contactHero > * {
-  position: relative;
-  z-index: 2;
+  background-color: var(--primary-color);
+  padding: 4rem 0;
+  text-align: center;
 }
 
 .contactHeroTextHeader {
-  font-size: var(--font-size-xl);
+  color: white;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--white);
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  z-index: 10;
 }
 
 .contactHeroSubTextHeader {
-  font-size: var(--font-size-md);
-  text-align: center;
-  max-width: 768px;
-  margin-bottom: 1rem;
-  color: var(--white);
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  z-index: 10;
+  color: white;
+  font-size: 1.2rem;
 }
 
-.main .phone {
-  display: flex;
-  align-items: center;
-  margin: 12px 0 12px 0;
-  font-family: "Manrope", sans-serif;
-  column-gap: 16px;
-  color: var(--primary-color);
-  font-size: var(--font-size-md);
-}
-.main .wrapper {
-  margin-top: 48px;
-  margin-bottom: 48px;
+.section {
+  padding: 4rem 0;
 }
 
-.main .wrapper form {
-  font-family: "Manrope", sans-serif;
-  font-size: var(--font-size-base);
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.wrapper form {
   display: flex;
   flex-direction: column;
-  flex-basis: 50%;
-  row-gap: 32px;
-}
-
-.main .wrapper form .selectContainer {
-  display: block;
-  color: var(--gray-color);
-}
-
-.main .wrapper form .selectContainer span {
-  font-size: var(--font-size-sm);
-}
-
-.main .wrapper form .selectContainer select {
-  color: var(--paragraph-font-color);
-  background-color: var(--background-color);
-  padding: 12px 16px;
-  border: none;
-  border-bottom: 2px solid var(--gray-color);
+  gap: 1rem;
   width: 100%;
-  box-sizing: border-box;
 }
 
-.main .wrapper form .selectContainer select:focus {
-  outline: none;
-  border-color: var(--primary-color);
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
 
-.main .wrapper form button {
-  border-radius: 8px;
-  padding: 12px 16px;
-  color: var(--white);
+.selectContainer span {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.selectContainer select,
+.selectContainer textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  background-color: white;
+  font-family: inherit;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.wrapper form button {
+  padding: 0.75rem;
   background-color: var(--primary-color);
-  transition: background-color 0.2 ease-in;
-  margin-top: auto;
-}
-
-.main .wrapper form button:hover {
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
-  background-color: var(--primary-button-hover-color);
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-.main .wrapper {
-  display: grid;
-  grid-template-columns: 0.75fr 1.25fr;
-  gap: 72px;
+.wrapper form button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.wrapper form button:disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+.mapWrapper {
   width: 100%;
+  height: 100%;
+  min-height: 400px;
 }
 
 .clinicInfoContainer {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
 }
 
 .workhoursTable {
   width: 100%;
   border-collapse: collapse;
-}
-
-.workhoursTable th,
-.workhoursTable td {
-  display: table-cell;
-  text-align: left;
-  padding: 12px 32px 12px 0;
-}
-
-.workhoursTable th {
-  font-family: "Raleway", sans-serif;
-  font-size: var(--font-size-base);
-  font-weight: 400;
-  text-align: left;
-  color: var(--primary-color);
+  margin-top: 1rem;
 }
 
 .workhoursTable td {
-  font-family: "Manrope", sans-serif;
-  font-size: var(--font-size-base);
-  color: var(--primary-font-color);
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.clinicInfoContainer .contactInfoWrapper {
-  display: flex;
-  flex-direction: column;
-  row-gap: 32px;
-  font-family: "Manrope";
-  color: var(--primary-font-color);
-}
-
-.contactInfoTextHeader {
-  font-size: var(--font-size-lg);
-  color: var(--primary-color);
-  font-family: "Poppins", sans-serif;
+.workhoursTable td:first-child {
   font-weight: 500;
 }
 
-.clinicInfoContainer .contactInfoWrapper .addressWrapper {
+.contactInfoWrapper {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  gap: 2rem;
 }
 
-.clinicInfoContainer .contactInfoWrapper .addressWrapper div,
-.clinicInfoContainer .contactInfoWrapper .addressWrapper div a {
-  display: flex;
-  align-items: center;
-  column-gap: 4px;
-}
-
-.clinicInfoContainer .contactInfoWrapper .socialWrapper {
-  margin-top: auto;
+.addressWrapper,
+.socialWrapper {
   display: flex;
   flex-direction: column;
-  row-gap: 12px;
+  gap: 1rem;
 }
 
-.clinicInfoContainer .contactInfoWrapper .socialWrapper a {
+.addressWrapper div,
+.socialWrapper a {
   display: flex;
   align-items: center;
-  column-gap: 4px;
-  transition: color 0.3 ease-in;
+  gap: 0.5rem;
+  color: var(--text-color);
+  text-decoration: none;
 }
 
-.clinicInfoContainer .contactInfoWrapper .socialWrapper a:hover {
-  color: var(--primary-color);
+.contactInfoTextHeader {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }
 
-.clinicInfoContainer .contactInfoWrapper .socialWrapper svg,
-.clinicInfoContainer .contactInfoWrapper .addressWrapper div svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--gray-color);
-  transition: fill 0.3s ease;
-}
-
-.clinicInfoContainer .contactInfoWrapper .addressWrapper div a:hover svg,
-.clinicInfoContainer .contactInfoWrapper .socialWrapper a:hover svg {
-  fill: var(--primary-color);
-}
-
-.clinicInfoContainer .contactInfoWrapper .addressWrapper div a:hover {
-  color: var(--primary-color);
-}
-
-/* Tablet Devices and more larger screens. */
-@media (min-width: 425px) and (max-width:992px) {
-  .main .wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 72px;
-    width: 100%;
-    flex-direction: column;
-  }
-
+@media (max-width: 768px) {
+  .wrapper,
   .clinicInfoContainer {
-    flex-direction: column;
-    row-gap: 32px;
-  }
-
-  .clinicInfoContainer .contactInfoWrapper .addressWrapper div svg {
-    display: none;
-  }
-  .clinicInfoContainer .contactInfoWrapper .socialWrapper svg {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  .workhoursTable {
-    margin-bottom: 24px;
-  }
-
-}
-
-/* Mobile Devices */
-@media (max-width: 425px) {
-  .main .wrapper {
-    display: grid;
     grid-template-columns: 1fr;
-    gap: 72px;
-    width: 100%;
-    flex-direction: column;
   }
 
-  .clinicInfoContainer {
-    flex-direction: column;
-    row-gap: 32px;
-  }
-
-  .clinicInfoContainer .contactInfoWrapper .addressWrapper div svg {
-    display: none;
-  }
-  .clinicInfoContainer .contactInfoWrapper .socialWrapper svg {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  .workhoursTable {
-    margin-bottom: 24px;
+  .mapWrapper {
+    min-height: 300px;
   }
 }
