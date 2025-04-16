@@ -2,8 +2,8 @@ spring:
   jpa:
     database: mysql
     show-sql: true
-#    hibernate:
-#      ddl-auto: create
+    hibernate:
+      ddl-auto: create
 
   datasource:
     url: jdbc:mysql://localhost:3306/dental?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
@@ -21,10 +21,18 @@ spring:
     port: 587
     username: noreplywebpro@gmail.com
     password: hyaedwsnjzavkyfz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 server:
   port: 6616
-#logging:
-#  level:
-#    org:
-#      springframework:
+logging:
+  level:
+    org:
+      springframework:
+        DEBUG
 #        security: DEBUG
