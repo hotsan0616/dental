@@ -3,32 +3,20 @@ import {
   ClinicPhotoOne,
   ClinicPhotoTwo,
   ClinicPhotoThree,
-  ClinicPhotoFour,
-  ClinicPhotoFive,
-  ClinicPhotoSix,
-  ClinicPhotoSeven,
-  ClinicPhotoEight,
-  ClinicPhotoNine,
   aboutUsImage,
-} from "@/utils/index";
+} from "@/utils/imageExporter";
 import React, { useState } from "react";
 import Image from "next/image";
 import RootLayout from "@/layouts/RootLayout";
 import styles from "./Aboutus.module.css";
 import CountUp from "@/components/countup/CountUp";
 import TeamMember from "@/types/teamMember";
-import TeamCard from "@/components/cards/TeamCard";
 import ImageModal from "@/components/modals/ImageModal";
-import teamData from "@/data/teamData.json";
 import ContactSection from "@/components/contact/ContactSection";
 
-const teamWithImages = teamData.map((member) => ({
-  ...member,
-  photoUrl: DentistAvatar,
-}));
+
 
 const Aboutus: React.FC = () => {
-  const [team, setTeam] = useState<TeamMember[]>(teamWithImages);
   const [images] = useState([
     ClinicPhotoOne,
     ClinicPhotoTwo,

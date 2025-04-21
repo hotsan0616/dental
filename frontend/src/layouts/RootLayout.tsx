@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
+import ChatBot from "@/components/chat/ChatBot";
 import styles from "./RootLayout.module.css";
 import 'swiper/css/navigation';
 import "swiper/swiper-bundle.css";
@@ -18,6 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <footer className={`container-fluid ${styles.footer}`}>
         <Footer />
       </footer>
+      <ChatBot />
     </div>
   );
 };
