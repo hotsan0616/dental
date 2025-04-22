@@ -3,6 +3,8 @@ package com.SEHS4701.group.controller;
 import com.SEHS4701.group.dto.AppointmentCreateRequest;
 import com.SEHS4701.group.dto.BaseResponse;
 import com.SEHS4701.group.service.AppointmentService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,16 +16,16 @@ public class AppointmentController {
 	
 	private final AppointmentService appointmentService;
 
+	@Autowired
     public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
 
 
     @PostMapping("/create")
-	public ResponseEntity<?> createAppointment(@RequestBody AppointmentCreateRequest appointmentCreateRequest) {
+	public ResponseEntity<?> createAppointment(@Valid @RequestBody AppointmentCreateRequest appointmentCreateRequest) {
 		try {
-			appointmentService.createAppointment(appointmentCreateRequest);
-			return new ResponseEntity<>(new BaseResponse(), HttpStatus.OK);
+			return new ResponseEntity<>(appointmentService.createAppointment(appointmentCreateRequest), HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(new BaseResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
