@@ -231,6 +231,20 @@ interface appointmentData {
   }>;
 }
 
+interface AppointmentResponse {
+  code: number;
+  message: string;
+  appointments: Array<{
+    id: number;
+    patientId: number;
+    clinicDentistId: number;
+    appointmentDate: string;
+    totalAmount: string;
+    status: string;
+    createdAt: string;
+  }>;
+}
+
 
 // API Functions
 export const patientApi = {
@@ -301,6 +315,16 @@ export const patientApi = {
 
   submitAppointment : async (formData: appointmentData): Promise<ApiResponse> => {
     const response = await api.post<ApiResponse>('/appointment/create', formData);
+    return response.data;
+  },
+
+  getPatientAppointments: async (patientId: number): Promise<AppointmentResponse> => {
+    const response = await api.get<AppointmentResponse>(`/appointment/patient/${patientId}`);
+    return response.data;
+  },
+
+  cancelAppointment: async (appointmentId: number): Promise<ApiResponse> => {
+    const response = await api.post<ApiResponse>('/appointment/cancel', { appointmentId });
     return response.data;
   },
 

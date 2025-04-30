@@ -16,11 +16,13 @@ interface Patient {
 }
 
 interface Appointment {
-  id: string;
-  date: string;
-  time: string;
-  treatment: string;
-  status: "completed" | "upcoming" | "cancelled";
+  id: number;
+  patientId: number;
+  clinicDentistId: number;
+  appointmentDate: string;
+  totalAmount: string;
+  status: string;
+  createdAt: string;
 }
 
 interface ValidationErrors {
@@ -35,30 +37,16 @@ const Profile: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
-  // Mock data for appointments - replace with actual data from your backend
-  const appointments: Appointment[] = [
-    {
-      id: "1",
-      date: "2024-03-15",
-      time: "10:00 AM",
-      treatment: "Dental Cleaning",
-      status: "completed",
-    },
-    {
-      id: "2",
-      date: "2024-03-20",
-      time: "2:30 PM",
-      treatment: "Teeth Whitening",
-      status: "upcoming",
-    },
-    {
-      id: "3",
-      date: "2024-02-28",
-      time: "11:00 AM",
-      treatment: "Dental Check-up",
-      status: "cancelled",
-    },
-  ];
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointmentError, setAppointmentError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // State for confirmation modal
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [appointmentToCancel, setAppointmentToCancel] = useState<number | null>(null);
+
+  // State for success popup
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in
@@ -74,6 +62,25 @@ const Profile: React.FC = () => {
     const parsedPatient = JSON.parse(patientInfo);
     setPatient(parsedPatient);
     setEditedPatient(parsedPatient);
+
+    // Fetch patient appointments
+    const fetchAppointments = async () => {
+      try {
+        const response = await patientApi.getPatientAppointments(parsedPatient.id);
+        if (response.code === 0) {
+          setAppointments(response.appointments);
+        } else {
+          setAppointmentError(response.message || 'Failed to fetch appointments');
+        }
+      } catch (err) {
+        setAppointmentError('Failed to fetch appointments');
+        console.error('Error fetching appointments:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAppointments();
   }, [router]);
 
   const handleEdit = () => {
@@ -119,22 +126,64 @@ const Profile: React.FC = () => {
     router.push('/login');
   };
 
-  const getStatusIcon = (status: Appointment["status"]) => {
+  const handleCancelAppointment = async (appointmentId: number) => {
+    setAppointmentToCancel(appointmentId);
+    setShowConfirmModal(true);
+  };
+
+  const confirmCancellation = async () => {
+    if (appointmentToCancel === null) return;
+
+    try {
+      const response = await patientApi.cancelAppointment(appointmentToCancel);
+      if (response.code === 0) {
+        // Update appointments list after cancellation
+        setAppointments(appointments.map(apt => 
+          apt.id === appointmentToCancel ? { ...apt, status: 'CANCELLED' } : apt
+        ));
+        // Show success popup
+        setShowConfirmModal(false);
+        setShowSuccessPopup(true);
+      } else {
+        setAppointmentError(response.message || 'Failed to cancel appointment');
+        setShowConfirmModal(false);
+      }
+    } catch (err) {
+      setAppointmentError('Failed to cancel appointment');
+      console.error('Error cancelling appointment:', err);
+      setShowConfirmModal(false);
+    } finally {
+      setAppointmentToCancel(null);
+    }
+  };
+
+  const cancelModal = () => {
+    setShowConfirmModal(false);
+    setAppointmentToCancel(null);
+  };
+
+  const handleSuccessPopupClose = () => {
+    setShowSuccessPopup(false);
+    // Refresh the page
+    window.location.reload();
+  };
+
+  const getStatusIcon = (status: string) => {
     switch (status) {
-      case "completed":
+      case "COMPLETED":
         return <FaCheckCircle className={styles.statusIcon} />;
-      case "cancelled":
+      case "CANCELLED":
         return <FaTimesCircle className={styles.statusIcon} />;
       default:
         return <FaClock className={styles.statusIcon} />;
     }
   };
 
-  const getStatusColor = (status: Appointment["status"]) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed":
+      case "COMPLETED":
         return styles.statusCompleted;
-      case "cancelled":
+      case "CANCELLED":
         return styles.statusCancelled;
       default:
         return styles.statusUpcoming;
@@ -261,23 +310,70 @@ const Profile: React.FC = () => {
             <FaCalendarAlt className={styles.sectionIcon} />
             <h2>Appointment History</h2>
           </div>
-          <div className={styles.appointmentList}>
-            {appointments.map((appointment) => (
-              <div key={appointment.id} className={styles.appointmentCard}>
-                <div className={styles.appointmentInfo}>
-                  <h3>{appointment.treatment}</h3>
-                  <p>
-                    {appointment.date} at {appointment.time}
-                  </p>
+          {appointmentError && <div className={styles.error}>{appointmentError}</div>}
+          {isLoading ? (
+            <div className={styles.loading}>Loading appointments...</div>
+          ) : (
+            <div className={styles.appointmentList}>
+              {appointments.map((appointment) => (
+                <div key={appointment.id} className={styles.appointmentCard}>
+                  {appointment.status === 'PENDING' && (
+                    <button
+                      onClick={() => handleCancelAppointment(appointment.id)}
+                      className={styles.cancelIconButton}
+                    >
+                      <FaTimesCircle />
+                    </button>
+                  )}
+                  <div className={styles.appointmentInfo}>
+                    <h3>Appointment #{appointment.id}</h3>
+                    <p>{new Date(appointment.appointmentDate).toLocaleString()}</p>
+                    <p className={styles.amount}>Amount: ${appointment.totalAmount}</p>
+                  </div>
+                  <div className={styles.appointmentActions}>
+                    <div className={`${styles.statusBadge} ${getStatusColor(appointment.status)}`}>
+                      {getStatusIcon(appointment.status)}
+                      <span>{appointment.status}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className={`${styles.statusBadge} ${getStatusColor(appointment.status)}`}>
-                  {getStatusIcon(appointment.status)}
-                  <span>{appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
+
+        {/* Confirmation Modal */}
+        {showConfirmModal && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+              <h3>Confirm Cancellation</h3>
+              <p>Are you sure you want to cancel this appointment?</p>
+              <div className={styles.modalActions}>
+                <button onClick={confirmCancellation} className={styles.confirmButton}>
+                  Confirm
+                </button>
+                <button onClick={cancelModal} className={styles.cancelModalButton}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Success Popup */}
+        {showSuccessPopup && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+              <h3>Success</h3>
+              <p>Appointment has been successfully cancelled.</p>
+              <div className={styles.modalActions}>
+                <button onClick={handleSuccessPopupClose} className={styles.successButton}>
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Logout Button */}
         <div className={styles.logoutContainer}>
@@ -291,4 +387,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile; 
+export default Profile;
