@@ -215,6 +215,16 @@ export const patientApi = {
     return response.data;
   },
 
+  forgotPassword: async (data: { email: string }): Promise<ApiResponse> => {
+    const response = await api.post<ApiResponse>('/patient/forgot-password', data);
+    return response.data;
+  },
+
+  resetPassword: async (data: { email: string; code: string; newPassword: string }): Promise<ApiResponse> => {
+    const response = await api.post<ApiResponse>('/patient/reset-password', data);
+    return response.data;
+  },
+
   getTreatments: async (): Promise<TreatmentResponse> => {
     const response = await api.get<TreatmentResponse>('/item/list');
     return response.data;
