@@ -181,6 +181,35 @@ interface ClinicDentistResponse {
   }>;
 }
 
+// Blog Related Interfaces
+interface BlogListResponse {
+  code: number;
+  message: string;
+  blogList: Array<{
+    id: number;
+    title: string;
+    slug: string;
+    snippet: string;
+    content: string;
+    date: string;
+    image: string;
+  }>;
+}
+
+interface BlogDetailResponse {
+  code: number;
+  message: string;
+  blog: {
+    id: number;
+    title: string;
+    slug: string;
+    snippet: string;
+    content: string;
+    date: string;
+    image: string;
+  };
+}
+
 // Contact Form Interface
 interface ContactFormData {
   firstName: string;
@@ -272,6 +301,16 @@ export const patientApi = {
 
   submitAppointment : async (formData: appointmentData): Promise<ApiResponse> => {
     const response = await api.post<ApiResponse>('/appointment/create', formData);
+    return response.data;
+  },
+
+  getBlogs: async (): Promise<BlogListResponse> => {
+    const response = await api.get<BlogListResponse>('/blog/list');
+    return response.data;
+  },
+
+  getBlogById: async (id: number): Promise<BlogDetailResponse> => {
+    const response = await api.get<BlogDetailResponse>(`/blog/${id}`);
     return response.data;
   },
 };

@@ -7,6 +7,7 @@ import styles from "./BlogCard.module.css";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 interface BlogCardProps {
+  id: number;
   title: string;
   snippet: string;
   slug: string;
@@ -15,6 +16,7 @@ interface BlogCardProps {
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({
+  id,
   title,
   snippet,
   slug,
@@ -29,7 +31,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   return (
     <div className={styles.blogCardContainer}>
       <Link
-        href={`/blogs/${slug}`}
+        href={`/blogs/${id}`}
         className={styles.imageWrapper}
         onClick={handleClick}
       >
@@ -38,12 +40,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
         </figure>
       </Link>
       <article>
-        <Link href={`/blogs/${slug}`} onClick={handleClick}>
+        <Link href={`/blogs/${id}`} onClick={handleClick}>
           <h2>{title}</h2>
         </Link>
         <p className={styles.cardSnippet}>{snippet}</p>
         <p className={styles.cardFooter}>
-          <Link href={`/blogs/${slug}`} onClick={handleClick}>
+          <Link href={`/blogs/${id}`} onClick={handleClick}>
             Read More
             <IoIosArrowRoundForward />
           </Link>

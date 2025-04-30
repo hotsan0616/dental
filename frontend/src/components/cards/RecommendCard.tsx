@@ -9,10 +9,11 @@ import Link from "next/link";
 interface RecommendCardProps {
   photoUrl: string | StaticImageData;
   title: string;
+  id: number;
   slug: string;
 }
 
-const RecommendCard: React.FC<RecommendCardProps> = ({ photoUrl, title, slug }) => {
+const RecommendCard: React.FC<RecommendCardProps> = ({ photoUrl, title, id, slug }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const RecommendCard: React.FC<RecommendCardProps> = ({ photoUrl, title, slug }) 
     const imageUrl = typeof photoUrl === 'string' ? photoUrl : photoUrl.src;
     
     dispatch(setBlogData({ title, photoUrl: imageUrl, slug }));
-    router.push(`/blogs/${slug}`);
+    router.push(`/blogs/${id}`);
   };
 
   return (
